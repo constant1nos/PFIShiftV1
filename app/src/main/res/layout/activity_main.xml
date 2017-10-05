@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context="com.example.dinob.pfishiftv1.MainActivity">
+
+    <Button
+        android:id="@+id/checkVardia"
+        android:layout_width="175dp"
+        android:layout_height="65dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="82dp"
+        android:layout_weight="0.37"
+        android:text="@string/CheckShift"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/checkDate"
+        android:layout_width="175dp"
+        android:layout_height="65dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="82dp"
+        android:layout_weight="0.31"
+        android:text="@string/CheckDate"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkVardia" />
+
+    <TextView
+        android:id="@+id/myText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:text="@string/MyMessage"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textShift"
+        android:layout_width="160dp"
+        android:layout_height="34dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="110dp"
+        android:text="@string/TextHint1"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintLeft_toRightOf="@+id/checkVardia"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="160dp"
+        android:layout_height="34dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="110dp"
+        android:text="@string/TextHint2"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintLeft_toRightOf="@+id/checkDate"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textShift"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/textOutput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+</android.support.constraint.ConstraintLayout>

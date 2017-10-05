@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PFI Shift V1</string>
+    <string name="MyMessage">Welcome!</string>
+    <string name="CheckDate">Check date</string>
+    <string name="CheckShift">Check shift</string>
+    <string name="TextHint1">Choose your shift today</string>
+    <string name="TextHint2">Choose the date to see your shift</string>
+    <string name="textMsg1">Your shift today is</string>
+    <string name="textMsg2">The date you picked is</string>
+</resources>
