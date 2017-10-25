@@ -1,15 +1,19 @@
 package com.example.dinob.pfishiftv1;
 
+import android.content.Context;
+
 /**
  * Created by dinob on 1/10/2017.
  */
 
-public class ShiftCalculation {
+public class ShiftCalculation{
     private int dayOfWeek;
     private int zeroDay;
     private int chosenDay;
     private String chosenShift;
+    private static Context mcontext;
 
+    // Constructor
     public ShiftCalculation() {
         dayOfWeek=0;
         zeroDay=0;
@@ -17,31 +21,37 @@ public class ShiftCalculation {
         chosenShift="NoInput";
     }
 
+    // Set Context so i can use getString(R.string.myVar)
+    public void setmContext(Context context){
+        this.mcontext=context;
+    }
+
+    // First day of shift's cycle calculation
     public void findZeroDay(int dow, String vardiaNow) {
-        if(vardiaNow.equals("Evening")) {
+        if(mcontext.getString(R.string.Evening) == vardiaNow) {
             if(dow>0 && dow<4)
                 zeroDay=dow+3;
             else
                 zeroDay=dow-4;
         }
-        else if(vardiaNow.equals("Day off 1"))
+        else if(vardiaNow == mcontext.getString(R.string.DayOff1))
             zeroDay=7;
-        else if(vardiaNow.equals("Morning")) {
+        else if(vardiaNow == mcontext.getString(R.string.Morning)) {
             if(dow>0 && dow<5)
                 zeroDay=dow+10;
             else
                 zeroDay = dow + 3;
         }
-        else if(vardiaNow.equals("Day off 2"))
+        else if(vardiaNow == mcontext.getString(R.string.DayOff2))
             zeroDay=15;
-        else if(vardiaNow.equals("Night")){
+        else if(vardiaNow == mcontext.getString(R.string.Night)){
             if(dow>0 && dow<6)
                 zeroDay=dow+17;
             else
                 zeroDay=dow+10;
         }
-        else if (vardiaNow.equals("5 days off")) {
-            if(dow>1 && dow<4)
+        else if (vardiaNow == mcontext.getString(R.string.DaysOff5)) {
+            if(dow>0 && dow<4)
                 zeroDay=dow+24;
             else
                 zeroDay=dow+17;
@@ -50,6 +60,7 @@ public class ShiftCalculation {
             zeroDay=0;
     }
 
+    // Day of year after user input calculation
     public void calculation(int uDayYear, int uYear, int mYear, int cDoy) {
         int startCycle = uDayYear - zeroDay;
         if (uYear < mYear) {
@@ -61,19 +72,20 @@ public class ShiftCalculation {
             chosenDay=chosenDay%28;
     }
 
+    // The result stored in a String
     public String getShift() {
         if(chosenDay<7)
-            chosenShift="Evening 14:00-22:00";
+            chosenShift=mcontext.getString(R.string.resultEvening);
         else if(chosenDay==7)
-            chosenShift="Day off 1";
+            chosenShift=mcontext.getString(R.string.resultDayOff1);
         else if (chosenDay>7 && chosenDay<15)
-            chosenShift="Morning 06:00-14:00";
+            chosenShift=mcontext.getString(R.string.resultMorning);
         else if(chosenDay==15)
-            chosenShift="Day off 2";
+            chosenShift=mcontext.getString(R.string.resultDayOff2);
         else if(chosenDay>15 && chosenDay<23)
-            chosenShift="Night 22:00-06:00";
+            chosenShift=mcontext.getString(R.string.resultNight);
         else if(chosenDay>=23 && chosenDay<28)
-            chosenShift="5 days off";
+            chosenShift=mcontext.getString(R.string.result5DaysOff);
         else
             chosenShift="Error!";
         return chosenShift;

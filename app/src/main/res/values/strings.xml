@@ -1,10 +1,39 @@
 <resources>
-    <string name="app_name">PFI Shift V1</string>
-    <string name="MyMessage">Welcome!</string>
+    <string name="app_name">Shift App</string>
+    <string name="MyMessage">The PFI\'s shift calculator</string>
     <string name="CheckDate">Check date</string>
     <string name="CheckShift">Check shift</string>
     <string name="TextHint1">Choose your shift today</string>
     <string name="TextHint2">Choose the date to see your shift</string>
     <string name="textMsg1">Your shift today is</string>
     <string name="textMsg2">The date you picked is</string>
+    <string name="Evening">Evening</string>
+    <string name="Morning">Morning</string>
+    <string name="Night">Night</string>
+    <string name="DayOff1">Day off 1</string>
+    <string name="DayOff2">Day off 2</string>
+    <string name="DaysOff5">5 Days off</string>
+    <string name="AlertMsg">Pick your shift today</string>
+    <string name="dtString">NoInput</string>
+    <string name="resultEvening">Evening 14:00-22:00</string>
+    <string name="resultDayOff1">Day off 1</string>
+    <string name="resultMorning">Morning 06:00-14:00</string>
+    <string name="resultDayOff2">Day off 2</string>
+    <string name="resultNight">Night 22:00-06:00</string>
+    <string name="result5DaysOff">5 Days off</string>
+    <string name="outputText">Your shift on</string>
+    <string name="isString">is:</string>
+    <string name="Second_Activ_info_msg">Please define a complete shift cycle, based on your shift in current session</string>
+    <string name="Fragment_Choose_Shift_Text">Choose shift:</string>
+    <string-array name="spinnerShifts">
+        <item>@string/Morning</item>
+        <item>@string/Evening</item>
+        <item>@string/Night</item>
+        <item>@string/DayOff1</item>
+    </string-array>
+    <string name="DayOff">Day off</string>
+    <string name="From">from</string>
+    <string name="To">to</string>
+    <string name="Fragment_Choose_Date_Text">Define dates:</string>
+    <string name="Fragment_Pick_Date">pick</string>
 </resources>

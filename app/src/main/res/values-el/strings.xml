@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shift App</string>
+    <string name="CheckDate">Check date</string>
+    <string name="CheckShift">Check shift</string>
+    <string name="MyMessage">Υπολογισμός βάρδιας ΒΦΛ</string>
+    <string name="TextHint1">Επέλεξε τη βάρδιά σου σήμερα</string>
+    <string name="TextHint2">Επέλεξε ημερομηνία για να δεις τη βάρδιά σου</string>
+    <string name="textMsg1">Η βάρδια σου σήμερα είναι</string>
+    <string name="textMsg2">Η ημερομηνία που διάλεξες είναι</string>
+    <string name="Evening">Απόγευμα</string>
+    <string name="Morning">Πρωί</string>
+    <string name="Night">Νύχτα</string>
+    <string name="DayOff1">Ρεπό μετά από απόγευμα</string>
+    <string name="DayOff2">Ρεπό μετά από πρωί</string>
+    <string name="DaysOff5">Μεγάλο ρεπό</string>
+    <string name="AlertMsg">Επέλεξε τη βάρδια που είσαι σήμερα</string>
+    <string name="dtString">No input</string>
+    <string name="resultEvening">Απόγευμα 14:00-22:00</string>
+    <string name="resultDayOff1">Ρεπό μετά από απόγευμα</string>
+    <string name="resultMorning">Πρωί 06:00-14:00</string>
+    <string name="resultDayOff2">Ρεπό μετά από Πρωί</string>
+    <string name="resultNight">Νύχτα 22:00-06:00</string>
+    <string name="result5DaysOff">Μεγάλο ρεπό</string>
+    <string name="outputText">Η βάρδιά σου</string>
+    <string name="isString">είναι:</string>
+    <string name="Second_Activ_info_msg">Όρισε έναν κύκλο της βάρδιας</string>
+    <string name="Fragment_Choose_Shift_Text">Επέλεξε βάρδια:</string>
+    <string name="DayOff">Ρεπό</string>
+    <string name="To">μέχρι</string>
+    <string name="From">από</string>
+    <string name="Fragment_Choose_Date_Text">Επέλεξε ημερομηνίες:</string>
+    <string name="Fragment_Pick_Date">επέλεξε</string>
+</resources>

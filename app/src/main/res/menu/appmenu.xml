@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Calendar"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="Calendar"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/Settings"
+        android:title="Settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/About"
+        android:title="About"
+        app:showAsAction="never" />
+</menu>
