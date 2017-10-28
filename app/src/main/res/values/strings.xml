@@ -36,4 +36,7 @@
     <string name="To">to</string>
     <string name="Fragment_Choose_Date_Text">Define dates:</string>
     <string name="Fragment_Pick_Date">pick</string>
+    <string name="Fragment_Add_Button">add</string>
+    <string name="Fragment_Remove_Button">remove</string>
+    <string name="Fragment_done_Button">done</string>
 </resources>

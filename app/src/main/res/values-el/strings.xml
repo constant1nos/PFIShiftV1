@@ -31,4 +31,7 @@
     <string name="From">από</string>
     <string name="Fragment_Choose_Date_Text">Επέλεξε ημερομηνίες:</string>
     <string name="Fragment_Pick_Date">επέλεξε</string>
+    <string name="Fragment_Add_Button">νεο</string>
+    <string name="Fragment_Remove_Button">διαγραφη</string>
+    <string name="Fragment_done_Button">ΤΕΛΟΣ</string>
 </resources>
