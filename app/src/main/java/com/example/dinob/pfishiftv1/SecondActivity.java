@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-import static com.example.dinob.pfishiftv1.R.id.fragmentResultText;
 
 /**
  * Created by dinob on 18/10/2017.
@@ -89,26 +88,15 @@ public class SecondActivity extends AppCompatActivity {
                 addButton();
             }
         });
-        //Log.d("SecondActivity OnCreate","Started");
         //Intent myIntent = getIntent();
         //addbuttonCounter = myIntent.getIntExtra("fButton",addbuttonCounter);
-        //Log.d("addButtonCounter: ",""+addbuttonCounter);
-        //if (savedInstanceState == null) {
-            //Log.d("SavedInstanceState: ", "null");
-           // FragmentSettings fi = new FragmentSettings();
-            //FragmentTransaction fc1 = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-            //fc1.add(R.id.InitialFrag, fi);
-// or ft.add(R.id.your_placeholder, new FooFragment());
-// Complete the changes added above
-            //fc1.commit();
-        //}
     }
 
     @Override
     protected void onResume() {
         super.onResume();
     }
+
     // Do things when date is picked
     public void pickDate(View bView) {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -136,6 +124,10 @@ public class SecondActivity extends AppCompatActivity {
 // or ft.add(R.id.your_placeholder, new FooFragment());
 //Complete the changes added above
         ft.commit();
+        do {
+            fragmentLayout[buttonPressed].getData(selectedItem);
+        }
+        while (!fragmentLayout[buttonPressed].getData(selectedItem));
         buttonPressed++;
     }
 }

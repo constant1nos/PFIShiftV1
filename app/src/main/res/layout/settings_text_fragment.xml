@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/settingsOutput"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_weight="1.01" />
+
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:drawableLeft="@android:drawable/ic_delete"
+        android:text="@string/Fragment_Remove_Button"
+        android:textSize="10sp" />
+
+</LinearLayout>
