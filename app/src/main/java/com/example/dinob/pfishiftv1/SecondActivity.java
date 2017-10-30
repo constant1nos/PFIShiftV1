@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -24,16 +25,27 @@ import java.util.Calendar;
  */
 
 public class SecondActivity extends AppCompatActivity {
-    Calendar myCal = Calendar.getInstance();
+
+    // Initialise variables
+    Calendar myCal = Calendar.getInstance(); //get current date
     int mYear = myCal.get(Calendar.YEAR);
     int mMonth = myCal.get(Calendar.MONTH);
     int mDay = myCal.get(Calendar.DAY_OF_MONTH);
-    String selectedItem;
-    TextView fragmentResultText;
+    int[] dates = {0, 0, 0, 0, 0, 0};
+    String selectedItem; //capture user's choice from spinner
+    TextView settingsOutputText;
     Button pickDate1Button, pickDate2Button, addButton, doneButton;
-    int buttonPressed=0;
-    final FragmentTextSettings[] fragmentLayout = {new FragmentTextSettings(), new FragmentTextSettings(), new FragmentTextSettings()};
-    final int[] fragmentArray = {R.id.myFrag1, R.id.myFrag2, R.id.myFrag3};
+    public int buttonPressed=0;
+    int bothDaysPicked = 0, datesPosition;
+
+    // FragmentTextSettings array to hold new fragment objects
+    final FragmentTextSettings[] fragmentLayout = {new FragmentTextSettings(), new FragmentTextSettings(), new FragmentTextSettings(),
+                                                    new FragmentTextSettings(), new FragmentTextSettings(), new FragmentTextSettings(),
+                                                    new FragmentTextSettings(), new FragmentTextSettings(), new FragmentTextSettings(),
+                                                    new FragmentTextSettings()};
+    // Array to hold the containers of second_activity FrameLayouts
+    final int[] fragmentArray = {R.id.myFrag1, R.id.myFrag2, R.id.myFrag3, R.id.myFrag4, R.id.myFrag5,
+                                    R.id.myFrag6, R.id.myFrag7, R.id.myFrag8, R.id.myFrag9, R.id.myFrag10};
 
 
     @Override
@@ -51,11 +63,11 @@ public class SecondActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         // Define Views
-        fragmentResultText = (TextView) findViewById(R.id.fragmentResultText);
+        settingsOutputText = (TextView) findViewById(R.id.settingsOutputText);
         pickDate1Button = (Button) findViewById(R.id.buttonDate1);
         pickDate2Button = (Button) findViewById(R.id.buttonDate2);
         addButton = (Button) findViewById(R.id.addFragmentButton);
-        doneButton = (Button) findViewById(R.id.removeButton);
+        doneButton = (Button) findViewById(R.id.doneFragmentButton);
 
         // Add listeners
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -66,7 +78,7 @@ public class SecondActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                selectedItem = null;
             }
         });
         pickDate1Button.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +93,7 @@ public class SecondActivity extends AppCompatActivity {
                 pickDate(bView);
             }
         });
+
         // Add new fragment
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,8 +101,6 @@ public class SecondActivity extends AppCompatActivity {
                 addButton();
             }
         });
-        //Intent myIntent = getIntent();
-        //addbuttonCounter = myIntent.getIntExtra("fButton",addbuttonCounter);
     }
 
     @Override
@@ -105,29 +116,45 @@ public class SecondActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        //Todo what i want on DateSet
+                        // Do on date set
+                        dates[datesPosition] = dayOfMonth;
+                        dates[datesPosition+1] = monthOfYear+1;
+                        dates[datesPosition+2] = year;
+                        settingsOutputText.setText("Button 1 pressed"+dates[datesPosition]+dates[datesPosition+1]+dates[datesPosition+2]);
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
+        // Firstly executed this, then onDateSet
         if(bView == pickDate1Button) {
-            fragmentResultText.setText("Button 1 pressed");
+            bothDaysPicked++;
+            datesPosition = 0;
         }
-        else fragmentResultText.setText("Button 2 pressed");
+        else {
+            bothDaysPicked++;
+            datesPosition = 3;
+        }
     }
 
     // Do things when add button is pressed
     public void addButton() {
-        Log.d("buttonPressed:",""+buttonPressed);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-// Replace the contents of the container with the new fragment
-        ft.replace(fragmentArray[buttonPressed], fragmentLayout[buttonPressed]);
-// or ft.add(R.id.your_placeholder, new FooFragment());
-//Complete the changes added above
-        ft.commit();
-        do {
-            fragmentLayout[buttonPressed].getData(selectedItem);
+        // Check if all required fields are OK
+        if (bothDaysPicked >= 2 && selectedItem != null) {
+            // Create bundle with the values needed from fragment's TextView
+            Bundle myBundle = new Bundle();
+            myBundle.putString("resultText",selectedItem);
+            myBundle.putIntArray("dates", dates);
+            fragmentLayout[buttonPressed].setArguments(myBundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            // Replace the contents of the container with the new fragment
+            ft.replace(fragmentArray[buttonPressed], fragmentLayout[buttonPressed]);
+            // or ft.add(R.id.your_placeholder, new FooFragment());
+            //Complete the changes added above
+            ft.commit();
+
+            buttonPressed++;
+            bothDaysPicked = 0;
         }
-        while (!fragmentLayout[buttonPressed].getData(selectedItem));
-        buttonPressed++;
+        else
+            Toast.makeText(getApplicationContext(),"Please complete all fields",Toast.LENGTH_SHORT).show();
     }
 }

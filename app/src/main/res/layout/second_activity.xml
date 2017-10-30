@@ -111,7 +111,7 @@
             app:layout_constraintTop_toBottomOf="@+id/buttonDate2" />
 
         <TextView
-            android:id="@+id/fragmentResultText"
+            android:id="@+id/settingsOutputText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
@@ -124,8 +124,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.02">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -136,21 +135,62 @@
                 android:id="@+id/myFrag1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
             </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/myFrag2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
             </FrameLayout>
+
             <FrameLayout
                 android:id="@+id/myFrag3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
             </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/myFrag4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/myFrag5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/myFrag6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/myFrag7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/myFrag8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/myFrag9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/myFrag10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

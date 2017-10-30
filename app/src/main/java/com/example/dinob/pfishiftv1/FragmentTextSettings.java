@@ -1,13 +1,13 @@
 package com.example.dinob.pfishiftv1;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -15,28 +15,44 @@ import android.widget.TextView;
  */
 
 public class FragmentTextSettings extends Fragment {
+
     TextView fragTest;
-    boolean viewCreated;
+    ImageButton deleteFragment;
+    int[] dates = new int[6];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.settings_text_fragment, container, false);
+
+        // Definition of views
         fragTest = (TextView) view.findViewById(R.id.settingsOutput);
+        deleteFragment = (ImageButton) view.findViewById(R.id.deleteFragment);
+        dates = getArguments().getIntArray("dates");
+        fragTest.setText(getArguments().getString("resultText")+" "+dates[0]+
+                "/"+dates[1] +"/"+dates[2]+" - "+dates[3]+"/"+dates[4]+"/"+dates[5]);
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewCreated=true;
+
+        // Listeners
+        deleteFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearFragment();
+            }
+        });
     }
 
-    public boolean getData(String var) {
-        if(!viewCreated)
-            return false;
-        else {
-            fragTest.setText(var);
-            return true;
-        }
+    public void clearFragment() {
+        FragmentTransaction fc = getActivity().getSupportFragmentManager().beginTransaction();
+        fc.remove(this);
+        fc.commit();
+        // decrease buttonPressed counter when fragment removes
+        SecondActivity mActivity = (SecondActivity) getActivity();
+        mActivity.buttonPressed--;
     }
 }

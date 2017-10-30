@@ -19,7 +19,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements
             View.OnClickListener {
 
-    //Initialise my variables
+    // Initialise my variables
     Button myButton1, myButton2; //2 buttons
     TextView textShift, textDate, output; //4 textViews
     private int mYear=0, mMonth=0, mDay=0; //int variables to hold the date
@@ -33,17 +33,15 @@ public class MainActivity extends AppCompatActivity implements
     int chosenDoy; //this is to find day of year after user has set the date
     ShiftCalculation myShift = new ShiftCalculation();
 
-        //Set views and listeners onCreate
+        // Set views and listeners onCreate
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            //Set toolbar as the actionbar
-           // Toolbar mToolbar = (Toolbar) findViewById(R.id.myToolbar);
-           // setSupportActionBar(mToolbar);
             vardiaNow=getString(R.string.dtString);
-            //Used for screen rotation to keep data
+
+            // Used for screen rotation to keep data
             if(savedInstanceState != null){
                 mYear = savedInstanceState.getInt("nYear");
                 mMonth = savedInstanceState.getInt("nMonth");
@@ -51,14 +49,14 @@ public class MainActivity extends AppCompatActivity implements
                 vardiaNow = savedInstanceState.getString("nVardia");
             }
 
-            //Definition of views
+            // Definition of views
             myButton1 = (Button) findViewById(R.id.checkVardia);
             myButton2 = (Button) findViewById(R.id.checkDate);
             textShift = (TextView) findViewById(R.id.textShift);
             textDate = (TextView) findViewById(R.id.textDate);
             output = (TextView) findViewById(R.id.textOutput);
 
-            //Trigger listeners
+            // Trigger listeners
             myButton1.setOnClickListener(this);
             myButton2.setOnClickListener(this);
 
@@ -138,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements
             }
 
         }
-        //method to call my class and calculate the output
+        // method to call my class and calculate the output
         public void doTheCalcs() {
             myShift.setmContext(this);
             myShift.findZeroDay(dow1, vardiaNow);
