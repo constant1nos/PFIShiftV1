@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,13 +10,14 @@
     <TextView
         android:id="@+id/SecondActInfoMsg"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="46dp"
         android:text="@string/Second_Activ_info_msg"
         android:textColor="?attr/actionMenuTextColor" />
 
     <android.support.constraint.ConstraintLayout
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/promptShift"
@@ -42,84 +44,84 @@
             android:id="@+id/promptDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Fragment_Choose_Date_Text"
             android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="24dp"
+            android:text="@string/Fragment_Choose_Date_Text"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/promptShift" />
 
         <TextView
             android:id="@+id/textFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/From"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/promptDate"
             android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            android:layout_marginTop="24dp"
+            android:text="@string/From"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/promptDate" />
 
         <Button
             android:id="@+id/buttonDate1"
             android:layout_width="100dp"
             android:layout_height="35dp"
-            android:text="@string/Fragment_Pick_Date"
-            app:layout_constraintLeft_toRightOf="@+id/textFrom"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
+            android:text="@string/Fragment_Pick_Date"
+            app:layout_constraintLeft_toRightOf="@+id/textFrom"
             app:layout_constraintTop_toBottomOf="@+id/promptDate" />
 
         <TextView
             android:id="@+id/textTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/To"
-            app:layout_constraintLeft_toRightOf="@+id/buttonDate1"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
+            android:text="@string/To"
+            app:layout_constraintLeft_toRightOf="@+id/buttonDate1"
             app:layout_constraintTop_toBottomOf="@+id/promptDate" />
 
         <Button
             android:id="@+id/buttonDate2"
             android:layout_width="100dp"
             android:layout_height="35dp"
-            android:text="@string/Fragment_Pick_Date"
-            app:layout_constraintLeft_toRightOf="@+id/textTo"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
+            android:text="@string/Fragment_Pick_Date"
+            app:layout_constraintLeft_toRightOf="@+id/textTo"
             app:layout_constraintTop_toBottomOf="@+id/promptDate" />
 
         <Button
             android:id="@+id/addFragmentButton"
             android:layout_width="135dp"
             android:layout_height="35dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
             android:drawableLeft="@android:drawable/ic_input_add"
             android:text="@string/Fragment_Add_Button"
-            android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/buttonDate1" />
 
         <Button
             android:id="@+id/doneFragmentButton"
             android:layout_width="135dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="24dp"
             android:drawableLeft="?android:attr/textCheckMarkInverse"
             android:text="@string/Fragment_done_Button"
-            app:layout_constraintLeft_toRightOf="@+id/addFragmentButton"
-            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonDate2" />
 
         <TextView
             android:id="@+id/settingsOutputText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
             android:text=""
             android:textColor="?attr/actionMenuTextColor"
-            android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/addFragmentButton"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addFragmentButton" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v4.widget.NestedScrollView

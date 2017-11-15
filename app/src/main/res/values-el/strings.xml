@@ -27,11 +27,24 @@
     <string name="Second_Activ_info_msg">Όρισε έναν κύκλο της βάρδιας</string>
     <string name="Fragment_Choose_Shift_Text">Επέλεξε βάρδια:</string>
     <string name="DayOff">Ρεπό</string>
-    <string name="To">μέχρι</string>
+    <string name="To">έως</string>
     <string name="From">από</string>
     <string name="Fragment_Choose_Date_Text">Επέλεξε ημερομηνίες:</string>
     <string name="Fragment_Pick_Date">επέλεξε</string>
-    <string name="Fragment_Add_Button">νεο</string>
+    <string name="Fragment_Add_Button">ΠΡΟΣΘΗΚΗ</string>
     <string name="Fragment_Remove_Button">διαγραφη</string>
     <string name="Fragment_done_Button">ΤΕΛΟΣ</string>
+    <string name="menu_settings">Ρυθμίσεις</string>
+    <string name="Second_Activ_alert_msg">Συμπλήρωσε όλα τα πεδία πρώτα</string>
+    <string name="menu_about">Σχετικά</string>
+    <string name="menu_calendar">Ημερολόγιο</string>
+    <string name="settings_enable_PFI_shift">Ενεργοποίηση βάρδιας Β.Φ.Λ.</string>
+    <string name="settings_new_cycle_text">Δημιουργία νέας βάρδιας:</string>
+    <string name="settings_create_cycle_button">ΝΕΟΣ ΚΥΚΛΟΣ</string>
+    <string name="settings_clear_data_text">Επαναφορά αρχικών ρυθμίσεων:</string>
+    <string name="settings_clear_button">ΕΠΑΝΑΦΟΡΑ</string>
+    <string name="data_saved">οι ρυθμίσεις αποθηκεύτηκαν</string>
+    <string name="data_cleared">Έγινε επαναφορά ρυθμίσεων</string>
+    <string name="alert_intro_msg">Δεν βρέθηκε αποθηκευμένη βάρδια. Πήγαινε στις ρυθμίσεις για να ορίσεις τη βάρδιά σου.</string>
+    <string name="alert_intro_title">Όρισε βάρδια</string>
 </resources>

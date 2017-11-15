@@ -1,5 +1,7 @@
 package com.example.dinob.pfishiftv1;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -51,8 +53,12 @@ public class FragmentTextSettings extends Fragment {
         FragmentTransaction fc = getActivity().getSupportFragmentManager().beginTransaction();
         fc.remove(this);
         fc.commit();
-        // decrease buttonPressed counter when fragment removes
+
+        // decrease buttonPressed counter when fragment removes and set previous delete button visible
+        //TODO find another way to do this, this is not best practise
         SecondActivity mActivity = (SecondActivity) getActivity();
         mActivity.buttonPressed--;
+        if (mActivity.buttonPressed >= 1)
+            mActivity.fragmentLayout[mActivity.buttonPressed-1].deleteFragment.setVisibility(ImageButton.VISIBLE);
     }
 }

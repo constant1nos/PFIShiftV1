@@ -1,11 +1,14 @@
 package com.example.dinob.pfishiftv1;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,18 +23,21 @@ public class MainActivity extends AppCompatActivity implements
             View.OnClickListener {
 
     // Initialise my variables
-    Button myButton1, myButton2; //2 buttons
-    TextView textShift, textDate, output; //4 textViews
+    Button myButton2; //2 buttons
+    TextView textDate, output; //4 textViews
     private int mYear=0, mMonth=0, mDay=0; //int variables to hold the date
     String vardiaNow, vardiaOut; //Strings for the text
     Calendar cal=Calendar.getInstance(); //get current date
     int dom=cal.get(Calendar.DAY_OF_MONTH); //initialise local variables to hold date type
     int m = cal.get(Calendar.MONTH);
-    int doy=cal.get(Calendar.DAY_OF_YEAR);
-    int dow1=cal.get(Calendar.DAY_OF_WEEK);
     int y=cal.get(Calendar.YEAR);
     int chosenDoy; //this is to find day of year after user has set the date
     ShiftCalculation myShift = new ShiftCalculation();
+
+    int savedSC, savedYear, prefInt;
+    String prefString;
+    boolean PFI,savedSettings;
+
 
         // Set views and listeners onCreate
         @Override
@@ -39,7 +45,34 @@ public class MainActivity extends AppCompatActivity implements
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            vardiaNow=getString(R.string.dtString);
+            //Check if app runs for the first time
+          // TODO
+            Context context = this;
+            final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
+
+            //prefInt=sharedPref.getInt("shift1",prefInt);
+            //prefString=sharedPref.getString("sShift1",prefString);
+            //vardiaNow=sharedPref.getString("PFIShift",vardiaNow);
+            PFI = sharedPref.getBoolean("PFIShift",PFI);
+            savedSettings = sharedPref.getBoolean("savedSettings",savedSettings);
+            if(!PFI && !savedSettings) {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(context);
+                }
+                builder.setTitle(R.string.alert_intro_title)
+                        .setMessage(R.string.alert_intro_msg)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent mIntent = new Intent(MainActivity.this, Settings.class);
+                                startActivity(mIntent);
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
 
             // Used for screen rotation to keep data
             if(savedInstanceState != null){
@@ -50,17 +83,16 @@ public class MainActivity extends AppCompatActivity implements
             }
 
             // Definition of views
-            myButton1 = (Button) findViewById(R.id.checkVardia);
             myButton2 = (Button) findViewById(R.id.checkDate);
-            textShift = (TextView) findViewById(R.id.textShift);
             textDate = (TextView) findViewById(R.id.textDate);
             output = (TextView) findViewById(R.id.textOutput);
 
+            //output.setText("start date: "+savedSC+", year: "+savedYear+", shift1 int: "+prefInt+", shift: "+prefString+"PFIShift: "+vardiaNow);
+
             // Trigger listeners
-            myButton1.setOnClickListener(this);
             myButton2.setOnClickListener(this);
 
-            if(mYear!=0 && mMonth!=0 && mDay!=0 && vardiaNow!=getString(R.string.dtString)) {
+            if(mYear!=0 && mMonth!=0 && mDay!=0 && vardiaNow!=null) {
                 doTheCalcs(); //in case screen rotation, if user gave inputs, just do the calcs
             }
         }
@@ -76,11 +108,17 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.Settings:
                 // User chose the "Settings" item, show the app settings UI...
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                Intent intent = new Intent(MainActivity.this, Settings.class);
                 startActivity(intent);
                 return true;
             case R.id.About:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent intentAbout = new Intent(MainActivity.this, About.class);
+                startActivity(intentAbout);
                 return true;
+            case R.id.Calendar:
+                Intent intentCalendar = new Intent(MainActivity.this, CustomCalendar.class);
+                startActivity(intentCalendar);
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -104,47 +142,25 @@ public class MainActivity extends AppCompatActivity implements
                                 mDay=dayOfMonth;
                                 mMonth=monthOfYear;
                                 mYear=year;
-                                Toast.makeText(getApplicationContext(),"Date saved",Toast.LENGTH_SHORT).show();
-                                //check if the shift has a value from user
-                                if(vardiaNow!=getString(R.string.dtString)) {
-                                    doTheCalcs();
-                                }
+                                // Call method to calculate the shift on this day
+                                doTheCalcs();
 
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
-            } else {
-
-                final String shift[] = new String[]{getString(R.string.Evening), getString(R.string.Morning), getString(R.string.Night), getString(R.string.DayOff1), getString(R.string.DayOff2),getString( R.string.DaysOff5)};
-
-                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-                builder.setTitle(getString(R.string.AlertMsg));
-                builder.setItems(shift, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // the user clicked on shift[which]
-                        textShift.setText(getString(R.string.textMsg1) + " " + shift[which]);
-                        vardiaNow=shift[which];
-                        Toast.makeText(getApplicationContext(),"Shift saved",Toast.LENGTH_SHORT).show();
-                        //check if user has picked a day
-                        if(mDay!=0 && mMonth!=0 && mYear!=0) {
-                            doTheCalcs();
-                        }
-                    }
-                });
-                builder.show();
             }
-
         }
         // method to call my class and calculate the output
         public void doTheCalcs() {
             myShift.setmContext(this);
-            myShift.findZeroDay(dow1, vardiaNow);
             cal.clear();
             cal.set(mYear, mMonth, mDay); //set the chosen day on calendar
             chosenDoy = cal.get(Calendar.DAY_OF_YEAR); //get day of year of chosen date
-            myShift.calculation(doy, y, mYear, chosenDoy);
-            vardiaOut=myShift.getShift();
+            myShift.calculation(mYear, chosenDoy);
+            if(PFI)
+                vardiaOut=myShift.getPFIShift();
+            else if(savedSettings)
+                vardiaOut=myShift.getShift();
             output.setText(getString(R.string.outputText)+" "+mDay+"/"+(mMonth+1)+"/"+mYear+" "+getString(R.string.isString)+" "+vardiaOut);
         }
 

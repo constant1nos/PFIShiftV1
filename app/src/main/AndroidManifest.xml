@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,9 +18,16 @@
         </activity>
         <activity
             android:name=".SecondActivity"
-            android:label=""
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".Settings" />
+        <activity
+            android:name=".Settings"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".About"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".CustomCalendar"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
