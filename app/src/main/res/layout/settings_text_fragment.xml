@@ -9,8 +9,8 @@
         android:id="@+id/settingsOutput"
         android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_weight="1.01" />
+        android:layout_weight="1.01"
+        android:text="TextView" />
 
     <ImageButton
         android:id="@+id/deleteFragment"

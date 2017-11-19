@@ -39,12 +39,24 @@
     <string name="menu_about">Σχετικά</string>
     <string name="menu_calendar">Ημερολόγιο</string>
     <string name="settings_enable_PFI_shift">Ενεργοποίηση βάρδιας Β.Φ.Λ.</string>
-    <string name="settings_new_cycle_text">Δημιουργία νέας βάρδιας:</string>
+    <string name="settings_new_cycle_text">Δημιουργία νέας βάρδιας</string>
     <string name="settings_create_cycle_button">ΝΕΟΣ ΚΥΚΛΟΣ</string>
-    <string name="settings_clear_data_text">Επαναφορά αρχικών ρυθμίσεων:</string>
+    <string name="settings_clear_data_text">Επαναφορά αρχικών ρυθμίσεων</string>
     <string name="settings_clear_button">ΕΠΑΝΑΦΟΡΑ</string>
     <string name="data_saved">οι ρυθμίσεις αποθηκεύτηκαν</string>
     <string name="data_cleared">Έγινε επαναφορά ρυθμίσεων</string>
     <string name="alert_intro_msg">Δεν βρέθηκε αποθηκευμένη βάρδια. Πήγαινε στις ρυθμίσεις για να ορίσεις τη βάρδιά σου.</string>
     <string name="alert_intro_title">Όρισε βάρδια</string>
+    <string name="Jan">Ιανουάριος</string>
+    <string name="Feb">Φεβρουάριος</string>
+    <string name="Mar">Μάρτιος</string>
+    <string name="Apr">Απρίλιος</string>
+    <string name="May">Μάιος</string>
+    <string name="Jun">Ιούνιος</string>
+    <string name="Jul">Ιούλιος</string>
+    <string name="Aug">Αύγουστος</string>
+    <string name="Sep">Σεπτέμβριος</string>
+    <string name="Oct">Οκτώβριος</string>
+    <string name="Nov">Νοέμβριος</string>
+    <string name="Dec">Δεκέμβριος</string>
 </resources>

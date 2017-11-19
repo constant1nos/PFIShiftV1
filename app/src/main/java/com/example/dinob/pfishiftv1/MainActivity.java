@@ -9,34 +9,43 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements
-            View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     // Initialise my variables
-    Button myButton2; //2 buttons
-    TextView textDate, output; //4 textViews
-    private int mYear=0, mMonth=0, mDay=0; //int variables to hold the date
+    CalendarView mCalendar;
+
     String vardiaNow, vardiaOut; //Strings for the text
     Calendar cal=Calendar.getInstance(); //get current date
-    int dom=cal.get(Calendar.DAY_OF_MONTH); //initialise local variables to hold date type
-    int m = cal.get(Calendar.MONTH);
-    int y=cal.get(Calendar.YEAR);
+    int mDay=cal.get(Calendar.DAY_OF_MONTH); //initialise local variables to hold date type
+    int mMonth = cal.get(Calendar.MONTH);
+    int mYear=cal.get(Calendar.YEAR);
     int chosenDoy; //this is to find day of year after user has set the date
     ShiftCalculation myShift = new ShiftCalculation();
 
-    int savedSC, savedYear, prefInt;
-    String prefString;
     boolean PFI,savedSettings;
+
+    List<EventDay> events = new ArrayList<>();
+
+    private int[] shiftIcons = {R.drawable.alpha,R.drawable.pi,R.drawable.nu,R.drawable.rho};
 
 
         // Set views and listeners onCreate
@@ -45,16 +54,13 @@ public class MainActivity extends AppCompatActivity implements
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            //Check if app runs for the first time
-          // TODO
+            // Create shared preferences XML
             Context context = this;
-            final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
+            appPreferences checkPref = appPreferences.getInstance(context);
 
-            //prefInt=sharedPref.getInt("shift1",prefInt);
-            //prefString=sharedPref.getString("sShift1",prefString);
-            //vardiaNow=sharedPref.getString("PFIShift",vardiaNow);
-            PFI = sharedPref.getBoolean("PFIShift",PFI);
-            savedSettings = sharedPref.getBoolean("savedSettings",savedSettings);
+            // Check if stored settings found
+            PFI = checkPref.getPref("PFIShift",PFI); // for PFI shift
+            savedSettings = checkPref.getPref("savedSettings",savedSettings); // for general shift
             if(!PFI && !savedSettings) {
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -83,19 +89,20 @@ public class MainActivity extends AppCompatActivity implements
             }
 
             // Definition of views
-            myButton2 = (Button) findViewById(R.id.checkDate);
-            textDate = (TextView) findViewById(R.id.textDate);
-            output = (TextView) findViewById(R.id.textOutput);
-
-            //output.setText("start date: "+savedSC+", year: "+savedYear+", shift1 int: "+prefInt+", shift: "+prefString+"PFIShift: "+vardiaNow);
+            mCalendar = (CalendarView) findViewById(R.id.calendarView);
 
             // Trigger listeners
-            myButton2.setOnClickListener(this);
 
-            if(mYear!=0 && mMonth!=0 && mDay!=0 && vardiaNow!=null) {
-                doTheCalcs(); //in case screen rotation, if user gave inputs, just do the calcs
+            // Set current day on CalendarView
+            mCalendar.setDate(cal);
+
+            if(PFI || savedSettings) {
+                customizeCalendar();
+                mCalendar.setEvents(events);
             }
         }
+
+    // Create the ActionBar menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements
         return true;
     }
 
+    // On a menu item selected, do what is necessary
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -112,13 +120,14 @@ public class MainActivity extends AppCompatActivity implements
                 startActivity(intent);
                 return true;
             case R.id.About:
-                // User chose the "Settings" item, show the app settings UI...
+                // User chose the "About" item, show the app about UI...
                 Intent intentAbout = new Intent(MainActivity.this, About.class);
                 startActivity(intentAbout);
                 return true;
+                // User clicked calendar menu icon, go to CustomCalendar activity
             case R.id.Calendar:
-                Intent intentCalendar = new Intent(MainActivity.this, CustomCalendar.class);
-                startActivity(intentCalendar);
+
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -126,51 +135,60 @@ public class MainActivity extends AppCompatActivity implements
 
         }
     }
-        @Override
-        public void onClick(View v) {
-            if (v == myButton2) {
-                mYear = y;
-                mMonth = m;
-                mDay = dom;
-                DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                        new DatePickerDialog.OnDateSetListener() {
 
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                textDate.setText(getString(R.string.textMsg2) + " " + dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                mDay=dayOfMonth;
-                                mMonth=monthOfYear;
-                                mYear=year;
-                                // Call method to calculate the shift on this day
-                                doTheCalcs();
-
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
+    // method to add labels on CalendarView
+    private void customizeCalendar() {
+        for(int i=1;i<60;i++) {
+            cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, i);
+            mDay=cal.get(Calendar.DAY_OF_MONTH); //initialise local variables to hold date type
+            mMonth = cal.get(Calendar.MONTH);
+            mYear=cal.get(Calendar.YEAR);
+            doTheCalcs();
         }
-        // method to call my class and calculate the output
-        public void doTheCalcs() {
-            myShift.setmContext(this);
-            cal.clear();
-            cal.set(mYear, mMonth, mDay); //set the chosen day on calendar
-            chosenDoy = cal.get(Calendar.DAY_OF_YEAR); //get day of year of chosen date
-            myShift.calculation(mYear, chosenDoy);
-            if(PFI)
-                vardiaOut=myShift.getPFIShift();
-            else if(savedSettings)
-                vardiaOut=myShift.getShift();
-            output.setText(getString(R.string.outputText)+" "+mDay+"/"+(mMonth+1)+"/"+mYear+" "+getString(R.string.isString)+" "+vardiaOut);
-        }
+        mCalendar.setEvents(events);
+        doTheCalcs();
+    }
 
-        @Override
-        public void onSaveInstanceState(Bundle outState){
-            super.onSaveInstanceState(outState);
-            outState.putInt("nYear",mYear);
-            outState.putInt("nMonth",mMonth);
-            outState.putInt("nDay",mDay);
-            outState.putString("nVardia",vardiaNow);
+    private void changeDateValues() {
+
+    }
+
+    // method to call ShiftCalculation class and calculate the output
+    public void doTheCalcs() {
+        myShift.setmContext(this); // Pass context to myShift
+        cal.set(mYear, mMonth, mDay); //set the chosen day on calendar
+        chosenDoy = cal.get(Calendar.DAY_OF_YEAR); //get day of year of chosen date
+        myShift.calculation(mYear, chosenDoy);
+
+        // Run the appropriate method to calculate the shift
+        if(PFI) {
+            vardiaOut = myShift.getPFIShift();
+            setCalendarIcons(vardiaOut);
+        }
+        else if(savedSettings)
+            vardiaOut=myShift.getShift();
+            setCalendarIcons(vardiaOut);
+    }
+
+    private void setCalendarIcons(String shift) {
+        if(shift==getString(R.string.Evening) || shift==getString(R.string.resultEvening))
+            events.add(new EventDay(cal, shiftIcons[0]));
+        else if(shift==getString(R.string.Morning) || shift==getString(R.string.resultMorning))
+            events.add(new EventDay(cal, shiftIcons[1]));
+        else if(shift==getString(R.string.Night) || shift==getString(R.string.resultNight))
+            events.add(new EventDay(cal, shiftIcons[2]));
+        else
+            events.add(new EventDay(cal, shiftIcons[3]));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putInt("nYear",mYear);
+        outState.putInt("nMonth",mMonth);
+        outState.putInt("nDay",mDay);
+        outState.putString("nVardia",vardiaNow);
         }
 
     }

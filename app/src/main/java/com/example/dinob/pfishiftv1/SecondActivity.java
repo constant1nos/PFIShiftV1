@@ -171,9 +171,7 @@ public class SecondActivity extends AppCompatActivity {
             //Complete the changes added above
             ft.commit();
 
-            Context context = this;
-            final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
+            appPreferences checkPref = appPreferences.getInstance(this);
 
             // Generate the desired variables
             if (buttonPressed == 0) { // Always shows the first fragment (startCycle)
@@ -187,10 +185,10 @@ public class SecondActivity extends AppCompatActivity {
 
                 // Store current fragment's data locally
 
-                editor.putInt("startCycle", shiftCycleInt[0]); // stores first dayOfYear of shift cycle
-                editor.putInt("year", dates[2]); // stores year
-                editor.putInt(preferencesTagsInt[0],shiftCycleInt[2]);
-                editor.putString(preferencesTagsStrings[0],selectedItem);
+                checkPref.savePref("startCycle", shiftCycleInt[0]); // stores first dayOfYear of shift cycle
+                checkPref.savePref("year", dates[2]); // stores year
+                checkPref.savePref(preferencesTagsInt[0],shiftCycleInt[2]);
+                checkPref.savePref(preferencesTagsStrings[0], selectedItem);
 
             }
             else {
@@ -204,12 +202,11 @@ public class SecondActivity extends AppCompatActivity {
                 Log.d("Day of year",""+shiftCycleInt[1]);
                 shiftCycleInt[2]+=(shiftCycleInt[1]-shiftCycleInt[0])+1;
 
-                editor.putInt(preferencesTagsInt[buttonPressed],shiftCycleInt[2]);
-                editor.putString(preferencesTagsStrings[buttonPressed],selectedItem);
+                checkPref.savePref(preferencesTagsInt[buttonPressed],shiftCycleInt[2]);
+                checkPref.savePref(preferencesTagsStrings[buttonPressed],selectedItem);
                 Log.d("Shift difference",""+shiftCycleInt[2]);
             }
-            editor.putBoolean("savedSettings", true);
-            editor.apply();
+            checkPref.savePref("savedSettings", true);
             // Set/Reset counters
             buttonPressed++;
             bothDaysPicked = 0;

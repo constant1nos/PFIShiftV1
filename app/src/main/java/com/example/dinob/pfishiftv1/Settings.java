@@ -19,12 +19,12 @@ public class Settings extends AppCompatActivity  {
 
     /*** Initialise variables and data ***/
     RadioButton enablePFI;
-    Button checkShift, newCycle, clearData;
-    TextView PFIHint1;
+    TextView newShiftPattern, clearDataText;
 
     // Using string array to set easier shared prefernces, one for integers and one for strings
     String[] preferencesTagsInt = {"shift1","shift2","shift3","shift4","shift5","shift6","shift7","shift8","shift9","shift10"};
     String[] preferencesTagsStrings = {"sShift1","sShift2","sShift3","sShift4","sShift5","sShift6","sShift7","sShift8","sShift9","sShift10"};
+
     // Default values to store for PFI shift ONLY
     int[] PFIDefaultValues = {6, 7, 14, 15, 22, 27};
 
@@ -34,6 +34,8 @@ public class Settings extends AppCompatActivity  {
     int dow1=cal.get(Calendar.DAY_OF_WEEK);
     int y=cal.get(Calendar.YEAR);
 
+    boolean bVar;
+
     String vardiaPFI;
 
     @Override
@@ -42,69 +44,59 @@ public class Settings extends AppCompatActivity  {
         setContentView(R.layout.activity_settings);
 
         // Definition of views
-        checkShift = (Button) findViewById(R.id.checkShift);
-        newCycle = (Button) findViewById(R.id.newCycle);
-        clearData = (Button) findViewById(R.id.clear);
-        PFIHint1 = (TextView) findViewById(R.id.textSettingsHint1);
+        clearDataText = (TextView) findViewById(R.id.clearDataText);
         enablePFI = (RadioButton) findViewById(R.id.enablePFIButton);
+        newShiftPattern = (TextView) findViewById(R.id.createNewCycleText);
 
         // Change Actionbar title and hide PFI views under RadioButton enablePFI
-        PFIHint1.setVisibility(TextView.INVISIBLE);
-        checkShift.setVisibility(Button.INVISIBLE);
         getSupportActionBar().setTitle(getString(R.string.menu_settings));
 
         // Create shared preferences file
-        Context context = getApplicationContext();
-        final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
+        final appPreferences checkPref = appPreferences.getInstance(getApplicationContext());
+        if(checkPref.getPref("PFIRadioButtonChecked",bVar))
+            enablePFI.toggle();
+
 
         /** On RadioButton PFI listener **/
         enablePFI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkShift.setVisibility(Button.VISIBLE);
-                PFIHint1.setVisibility(TextView.VISIBLE);
-
-                // On check shift under RadioButton listener
-                checkShift.setOnClickListener(new View.OnClickListener() {
+                final String shift[] = new String[]{getString(R.string.Evening), getString(R.string.DayOff1), getString(R.string.Morning), getString(R.string.DayOff2), getString(R.string.Night), getString(R.string.DaysOff5)};
+                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+                builder.setTitle(getString(R.string.AlertMsg));
+                builder.setItems(shift, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        final String shift[] = new String[]{getString(R.string.Evening), getString(R.string.DayOff1), getString(R.string.Morning), getString(R.string.DayOff2), getString(R.string.Night),getString( R.string.DaysOff5)};
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
-                        builder.setTitle(getString(R.string.AlertMsg));
-                        builder.setItems(shift, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // the user clicked on shift[which]
-                                vardiaPFI=shift[which];
+                    public void onClick(DialogInterface dialog, int which) {
+                        // the user clicked on shift[which]
+                        vardiaPFI = shift[which];
 
-                                // Calculate startCycle for PFI shift
-                                int startCycle = findZeroDay(dow1,vardiaPFI);
+                        // Calculate startCycle for PFI shift
+                        int startCycle = findZeroDay(dow1, vardiaPFI);
 
-                                // Store default values from table
-                                SharedPreferences.Editor editor = sharedPref.edit();
-                                editor.putBoolean("PFIShift", true);
-                                editor.putInt("startCycle",startCycle);
-                                editor.putInt("year",y);
-                                for(int i = 0; i<=5; i++){
-                                    editor.putInt(preferencesTagsInt[i],PFIDefaultValues[i]);
-                                    editor.putString(preferencesTagsStrings[i],shift[i]);
-                                }
-                                editor.apply();
+                        // Store default values from table
+                        checkPref.savePref("PFIRadioButtonChecked",true);
+                        checkPref.savePref("PFIShift", true);
+                        checkPref.savePref("startCycle", startCycle);
+                        checkPref.savePref("year", y);
+                        for (int i = 0; i <= 5; i++) {
+                            checkPref.savePref(preferencesTagsInt[i], PFIDefaultValues[i]);
+                            checkPref.savePref(preferencesTagsStrings[i], shift[i]);
+                        }
 
-                                // After saving data, go to Main Activity
-                                Toast.makeText(getApplicationContext(),getString(R.string.data_saved),Toast.LENGTH_SHORT).show();
-                                Intent mainIntent = new Intent(Settings.this,MainActivity.class);
-                                startActivity(mainIntent);
-                            }
-                        });
-                        builder.show();
+                        // After saving data, go to Main Activity
+                        Toast.makeText(getApplicationContext(), getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
+                        Intent mainIntent = new Intent(Settings.this, MainActivity.class);
+                        startActivity(mainIntent);
                     }
                 });
+                builder.show();
             }
         });
 
+
+
         /** When new cycle button pressed, go to SecondActivity **/
-        newCycle.setOnClickListener(new View.OnClickListener() {
+        newShiftPattern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent setCycle = new Intent(Settings.this,SecondActivity.class);
@@ -113,19 +105,18 @@ public class Settings extends AppCompatActivity  {
         });
 
         // Clear data button listener
-        clearData.setOnClickListener(new View.OnClickListener() {
+        clearDataText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt("startCycle", 0); // stores first dayOfYear of shift cycle
-                editor.putInt("year", 0); // stores year
-                editor.putBoolean("PFIShift", false);
-                editor.putBoolean("savedSettings",false);
+                checkPref.savePref("startCycle", 0); // stores first dayOfYear of shift cycle
+                checkPref.savePref("year", 0); // stores year
+                checkPref.savePref("PFIShift", false);
+                checkPref.savePref("savedSettings",false);
+                checkPref.savePref("PFIRadioButtonChecked",false);
                 for(int i = 0; i<10; i++) {
-                    editor.putInt(preferencesTagsInt[i],0);
-                    editor.putString(preferencesTagsStrings[i], null);
+                    checkPref.savePref(preferencesTagsInt[i],0);
+                    checkPref.savePref(preferencesTagsStrings[i], null);
                 }
-                editor.apply();
                 Toast.makeText(getApplicationContext(),getString(R.string.data_cleared),Toast.LENGTH_SHORT).show();
             }
         });

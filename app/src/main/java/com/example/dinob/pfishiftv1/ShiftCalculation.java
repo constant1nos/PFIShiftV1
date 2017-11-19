@@ -37,14 +37,14 @@ public class ShiftCalculation{
         String[] preferencesTagsInt = {"shift1","shift2","shift3","shift4","shift5","shift6","shift7","shift8","shift9","shift10"};
         String[] preferencesTagsStrings = {"sShift1","sShift2","sShift3","sShift4","sShift5","sShift6","sShift7","sShift8","sShift9","sShift10"};
 
-        final SharedPreferences sharedPref = mcontext.getSharedPreferences(mcontext.getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
-        startCycle = sharedPref.getInt("startCycle",startCycle);
-        year = sharedPref.getInt("year",year);
+        appPreferences checkPref = appPreferences.getInstance(mcontext);
+        startCycle = checkPref.getPref("startCycle",startCycle);
+        year = checkPref.getPref("year",year);
         i=-1;
         do {
             i++;
-            prefInts[i] = sharedPref.getInt(preferencesTagsInt[i],prefInts[i]);
-            prefStrings[i] = sharedPref.getString(preferencesTagsStrings[i],prefStrings[i]);
+            prefInts[i] = checkPref.getPref(preferencesTagsInt[i],prefInts[i]);
+            prefStrings[i] = checkPref.getPref(preferencesTagsStrings[i],prefStrings[i]);
         } while(prefStrings[i] != null);
 
         int lastShift = prefInts[i-1];

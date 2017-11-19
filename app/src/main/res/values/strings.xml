@@ -32,6 +32,20 @@
         <item>@string/Night</item>
         <item>@string/DayOff</item>
     </string-array>
+    <string-array name="theMonths">
+        <item>@string/Jan</item>
+        <item>@string/Feb</item>
+        <item>@string/Mar</item>
+        <item>@string/Apr</item>
+        <item>@string/May</item>
+        <item>@string/Jun</item>
+        <item>@string/Jul</item>
+        <item>@string/Aug</item>
+        <item>@string/Sep</item>
+        <item>@string/Oct</item>
+        <item>@string/Nov</item>
+        <item>@string/Dec</item>
+    </string-array>
     <string name="DayOff">Day off</string>
     <string name="From">from</string>
     <string name="To">to</string>
@@ -45,12 +59,24 @@
     <string name="menu_calendar">Calendar</string>
     <string name="shared_preferences_file" translatable="false">com.example.dinob.pfishiftv1.LOCAL_DATA</string>
     <string name="settings_enable_PFI_shift">Enable predefined PFI shift</string>
-    <string name="settings_new_cycle_text">Create new shift pattern:</string>
+    <string name="settings_new_cycle_text">Create new shift pattern</string>
     <string name="settings_create_cycle_button">create</string>
-    <string name="settings_clear_data_text">Clear stored data:</string>
+    <string name="settings_clear_data_text">Clear stored data</string>
     <string name="settings_clear_button">clear</string>
     <string name="data_saved">data saved</string>
     <string name="data_cleared">data cleared</string>
     <string name="alert_intro_msg">No saved settings found. Please go to settings to define your preferences</string>
     <string name="alert_intro_title">Set your shift</string>
+    <string name="Jan">January</string>
+    <string name="Feb">February</string>
+    <string name="Mar">March</string>
+    <string name="Apr">April</string>
+    <string name="May">May</string>
+    <string name="Jun">June</string>
+    <string name="Jul">July</string>
+    <string name="Aug">August</string>
+    <string name="Sep">September</string>
+    <string name="Oct">October</string>
+    <string name="Nov">November</string>
+    <string name="Dec">December</string>
 </resources>

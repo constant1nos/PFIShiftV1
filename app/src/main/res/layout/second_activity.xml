@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:text="@string/Second_Activ_info_msg"
-        android:textColor="?attr/actionMenuTextColor" />
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="14sp" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -63,7 +64,7 @@
         <Button
             android:id="@+id/buttonDate1"
             android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/Fragment_Pick_Date"
@@ -83,7 +84,7 @@
         <Button
             android:id="@+id/buttonDate2"
             android:layout_width="100dp"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/Fragment_Pick_Date"
@@ -92,8 +93,8 @@
 
         <Button
             android:id="@+id/addFragmentButton"
-            android:layout_width="135dp"
-            android:layout_height="35dp"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="24dp"
             android:drawableLeft="@android:drawable/ic_input_add"
@@ -103,8 +104,8 @@
 
         <Button
             android:id="@+id/doneFragmentButton"
-            android:layout_width="135dp"
-            android:layout_height="35dp"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="24dp"
             android:drawableLeft="?android:attr/textCheckMarkInverse"
