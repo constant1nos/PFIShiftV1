@@ -1,28 +1,41 @@
 package com.example.dinob.pfishiftv1;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
 
 /**
  * Created by dinob on 1/10/2017.
  */
 
 public class ShiftCalculation{
-    private int chosenDay;
-    private String chosenShift;
-    private static Context mcontext;
+    private int chosenDay;              // used for user's chosen date calculation
+    private String chosenShift;         // storing the result as a string
+    private static Context mcontext;    // needed to use getString method
 
     private int startCycle, year;
-    private int[] prefInts = new int[10];
-    private String[] prefStrings = new String[10];
-    private int i; // counter
+    private int[] prefInts = new int[10];       // stores data table from preferences array with values
+    private int[] prefShift = new int[10];      // stores date from preferences pointing the shift (0,1,2,3)
+    private int i;                              // counter
 
     // Constructor
-    public ShiftCalculation() {
+    public ShiftCalculation(Context context) {
+        mcontext=context;
         chosenDay=0;
-        i=0;
         chosenShift="NoInput";
+        String prefString;      // stores string from preferences final arrays (see appPreferences class)
+
+        appPreferences checkPref = appPreferences.getInstance(mcontext);    // Initialise using Singleton class
+        startCycle = checkPref.getPref("startCycle",startCycle);       // Get stored data from preferences
+        year = checkPref.getPref("year",year);
+        i=-1; //starting value
+
+        // Collect data and store them to local variables to work with
+        do {
+            i++; //counting from zero
+            prefString = checkPref.getPrefStringTagFromArrayValues(i);
+            prefInts[i] = checkPref.getPref(prefString,prefInts[i]);
+            prefString = checkPref.getPrefStringTagFromArrayShifts(i);
+            prefShift[i] = checkPref.getPref(prefString,prefShift[i]);
+        } while(prefShift[i] != -1);
     }
 
     // Set Context so i can use getString(R.string.myVar)
@@ -34,32 +47,21 @@ public class ShiftCalculation{
     // Day of year after user input calculation
     public void calculation(int mYear, int cDoy) {
 
-        String[] preferencesTagsInt = {"shift1","shift2","shift3","shift4","shift5","shift6","shift7","shift8","shift9","shift10"};
-        String[] preferencesTagsStrings = {"sShift1","sShift2","sShift3","sShift4","sShift5","sShift6","sShift7","sShift8","sShift9","sShift10"};
-
-        appPreferences checkPref = appPreferences.getInstance(mcontext);
-        startCycle = checkPref.getPref("startCycle",startCycle);
-        year = checkPref.getPref("year",year);
-        i=-1;
-        do {
-            i++;
-            prefInts[i] = checkPref.getPref(preferencesTagsInt[i],prefInts[i]);
-            prefStrings[i] = checkPref.getPref(preferencesTagsStrings[i],prefStrings[i]);
-        } while(prefStrings[i] != null);
-
-        int lastShift = prefInts[i-1];
+        int lastShift = prefInts[i-1];      // i-1 because i points to nothing stored
 
         if (year < mYear) {
-            chosenDay = ((mYear - year) * 365) + cDoy - startCycle;
+            if(mYear > 2020 || mYear == 2025 || mYear == 2028 || mYear == 2032 || mYear == 2036 || mYear == 2040) // disekta eti
+                chosenDay = (((mYear - year) * 365) + 1) + cDoy - startCycle;
+            else
+                chosenDay = ((mYear - year) * 365) + cDoy - startCycle;
         } else {
             chosenDay = cDoy - startCycle;
         }
         if(chosenDay>=lastShift)
             chosenDay=chosenDay%(lastShift+1);
-        Log.d("chosenDay"," "+chosenDay);
-
     }
 
+    /** Result String for PFI ONLY **/
     // The result stored in a String
     public String getPFIShift() {
         if(chosenDay<7)
@@ -79,17 +81,33 @@ public class ShiftCalculation{
         return chosenShift;
     }
 
+    /** Result for custom shift **/
     // The result stored in a String
     public String getShift() {
+        int temp=-1;
         if (chosenDay>=0 && chosenDay<=prefInts[0])
-            chosenShift = prefStrings[0];
+            temp = prefShift[0];
         for (int j = 0; j < i-1; j++) {
-            Log.d("prefInts[j]", " " + prefInts[j]+" : "+j);
             if (chosenDay>prefInts[j] && chosenDay<=prefInts[j+1])
-                chosenShift = prefStrings[j+1];
-            Log.d("chosenShift", " " + chosenShift);
+                temp = prefShift[j+1];
         }
-        Log.d("final chosenShift", " " + chosenShift);
+        switch (temp) {
+            case 0:
+                chosenShift=mcontext.getString(R.string.Morning);
+                break;
+            case 1:
+                chosenShift=mcontext.getString(R.string.Evening);
+                break;
+            case 2:
+                chosenShift=mcontext.getString(R.string.Night);
+                break;
+            case 3:
+                chosenShift=mcontext.getString(R.string.DayOff);
+                break;
+            default:
+                chosenShift="Error";
+                break;
+        }
         return chosenShift;
     }
 

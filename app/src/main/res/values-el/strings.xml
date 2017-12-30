@@ -25,11 +25,11 @@
     <string name="outputText">Η βάρδιά σου</string>
     <string name="isString">είναι:</string>
     <string name="Second_Activ_info_msg">Όρισε έναν κύκλο της βάρδιας</string>
-    <string name="Fragment_Choose_Shift_Text">Επέλεξε βάρδια:</string>
+    <string name="Fragment_Choose_Shift_Text">1. Επέλεξε βάρδια</string>
     <string name="DayOff">Ρεπό</string>
     <string name="To">έως</string>
     <string name="From">από</string>
-    <string name="Fragment_Choose_Date_Text">Επέλεξε ημερομηνίες:</string>
+    <string name="Fragment_Choose_Date_Text">2. Επέλεξε ημερομηνίες</string>
     <string name="Fragment_Pick_Date">επέλεξε</string>
     <string name="Fragment_Add_Button">ΠΡΟΣΘΗΚΗ</string>
     <string name="Fragment_Remove_Button">διαγραφη</string>
@@ -59,4 +59,19 @@
     <string name="Oct">Οκτώβριος</string>
     <string name="Nov">Νοέμβριος</string>
     <string name="Dec">Δεκέμβριος</string>
+    <string name="Mon">Δε</string>
+    <string name="Tue">Τρ</string>
+    <string name="Wed">Τε</string>
+    <string name="Thu">Πε</string>
+    <string name="Fri">Πα</string>
+    <string name="Sat">Σα</string>
+    <string name="Sun">Κυ</string>
+    <string name="Second_activity_NoLinearity">Δεν υπάρχει συνέχεια στις ημερομηνίες</string>
+    <string name="Fragment_add_to_shift">3. Προσθήκη στη βάρδια</string>
+    <string name="Fragment_repeat_msg">4. Επανέλαβε τα προηγούμενα βήματα όσες φορές χρειαστεί</string>
+    <string name="Fragment_press_done_prompt">5. Πάτησε Τέλος μόλις ολοκληρώσεις τη δημιουργία ενός κύκλου</string>
+    <string name="search_day">Εύρεση μιας συγκεκριμένης ημερομηνίας</string>
+    <string name="search_calendar">Άνοιγμα ημερολογίου</string>
+    <string name="data_loading">Φόρτωση δεδομένων...</string>
+    <string name="Help_menu">Βοήθεια</string>
 </resources>

@@ -12,13 +12,15 @@
         android:layout_height="50dp"
         android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/enablePFIButton"
+        <Switch
+            android:id="@+id/PFISwitch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="@string/settings_enable_PFI_shift"
-            android:textSize="18sp" />
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/background_dark"
+            android:textSize="16sp"
+            android:text="@string/settings_enable_PFI_shift" />
     </LinearLayout>
 
     <View
@@ -39,7 +41,7 @@
             android:text="@string/settings_new_cycle_text"
             android:layout_marginStart="8dp"
             android:textColor="@android:color/background_dark"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -61,7 +63,7 @@
             android:layout_marginStart="8dp"
             android:textColor="@android:color/background_dark"
             android:gravity="center_vertical"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

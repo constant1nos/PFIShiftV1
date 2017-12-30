@@ -15,6 +15,8 @@ public class appPreferences {
     private final SharedPreferences sharedPref;
     private SharedPreferences.Editor sharedPrefEditor;
     private static appPreferences instance;
+    private final String[] preferencesTagsValues = {"shift1","shift2","shift3","shift4","shift5","shift6","shift7","shift8","shift9","shift10"};
+    private final String[] preferencesTagsShift = {"sShift1","sShift2","sShift3","sShift4","sShift5","sShift6","sShift7","sShift8","sShift9","sShift10"};
 
     // Constructor
     private appPreferences(Context context) {
@@ -47,6 +49,14 @@ public class appPreferences {
 
     public int getPref(String key, int var) {
         return sharedPref.getInt(key, var);
+    }
+
+    public String getPrefStringTagFromArrayValues(int i) {
+        return preferencesTagsValues[i];
+    }
+
+    public String getPrefStringTagFromArrayShifts(int i) {
+        return preferencesTagsShift[i];
     }
 
     public String getPref(String key, String var) {

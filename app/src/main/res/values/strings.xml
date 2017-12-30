@@ -25,7 +25,7 @@
     <string name="isString">is:</string>
     <string name="Second_Activ_info_msg">Please define a complete shift cycle, based on your shift in current session</string>
     <string name="Second_Activ_alert_msg">Please fill all fields</string>
-    <string name="Fragment_Choose_Shift_Text">Choose shift:</string>
+    <string name="Fragment_Choose_Shift_Text">1. Choose shift</string>
     <string-array name="spinnerShifts">
         <item>@string/Morning</item>
         <item>@string/Evening</item>
@@ -46,10 +46,19 @@
         <item>@string/Nov</item>
         <item>@string/Dec</item>
     </string-array>
+    <string-array name="theDays">
+        <item>@string/Mon</item>
+        <item>@string/Tue</item>
+        <item>@string/Wed</item>
+        <item>@string/Thu</item>
+        <item>@string/Fri</item>
+        <item>@string/Sat</item>
+        <item>@string/Sun</item>
+    </string-array>
     <string name="DayOff">Day off</string>
     <string name="From">from</string>
     <string name="To">to</string>
-    <string name="Fragment_Choose_Date_Text">Define dates:</string>
+    <string name="Fragment_Choose_Date_Text">2. Define dates</string>
     <string name="Fragment_Pick_Date">pick</string>
     <string name="Fragment_Add_Button">add</string>
     <string name="Fragment_Remove_Button">remove</string>
@@ -79,4 +88,20 @@
     <string name="Oct">October</string>
     <string name="Nov">November</string>
     <string name="Dec">December</string>
+    <string name="Mon">Mon</string>
+    <string name="Tue">Tue</string>
+    <string name="Wed">Wed</string>
+    <string name="Thu">Thu</string>
+    <string name="Fri">Fri</string>
+    <string name="Sat">Sat</string>
+    <string name="Sun">Sun</string>
+    <string name="Second_activity_NoLinearity">The dates you chose are not continues</string>
+    <string name="Fragment_add_to_shift">3. Add to shift</string>
+    <string name="Fragment_repeat_msg">4. Repeat previous steps as many times as you need</string>
+    <string name="Fragment_press_done_prompt">5. Press done when you complete a shift cycle</string>
+    <string name="search_day">Search for a specific date</string>
+    <string name="search_calendar">See calendar</string>
+    <string name="data_loading">Loading data...</string>
+    <string name="Help_menu">Help</string>
+
 </resources>
